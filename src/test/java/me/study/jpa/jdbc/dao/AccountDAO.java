@@ -1,8 +1,7 @@
-package jdbc.dao;
+package me.study.jpa.jdbc.dao;
 
-import jdbc.vo.AccountVO;
+import me.study.jpa.jdbc.vo.AccountVO;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 
 public class AccountDAO {

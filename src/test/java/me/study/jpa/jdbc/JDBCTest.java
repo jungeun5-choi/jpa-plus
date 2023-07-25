@@ -1,7 +1,7 @@
-package jdbc;
+package me.study.jpa.jdbc;
 
-import jdbc.dao.AccountDAO;
-import jdbc.vo.AccountVO;
+import me.study.jpa.jdbc.dao.AccountDAO;
+import me.study.jpa.jdbc.vo.AccountVO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

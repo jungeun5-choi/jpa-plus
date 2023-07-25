@@ -1,4 +1,4 @@
-package jdbc.vo;
+package me.study.jpa.jdbc.vo;
 
 public class AccountVO {
 
