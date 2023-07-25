@@ -61,4 +61,18 @@ public class JDBCTest {
             }
         }
     }
+
+    @Test
+    @DisplayName("JDBC DAO 삽입/조회 실습")
+    void jdbcDAOInsertSelectTest() throws SQLException {
+        // given
+        AccountDAO accountDAO = new AccountDAO();
+
+        // when
+        var id = accountDAO.insertAccount(new AccountVO("new user", "new password"));
+
+        // then
+        var account = accountDAO.selectAccount(id);
+        assert account.getUsername().equals("new user");
+    }
 }
