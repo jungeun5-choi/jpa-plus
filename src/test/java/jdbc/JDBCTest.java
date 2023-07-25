@@ -33,5 +33,32 @@ public class JDBCTest {
             e.printStackTrace();
         }
     }
+    @Test
+    @DisplayName("JDBC 삽입/조회 실습")
+    void jdbcInsertSelectTest() throws SQLException {
+        // given
+        String url = "jdbc:postgresql://localhost:5432/messenger";
+        String username = "temprmn";
+        String password = "pass";
 
+        // when
+        try (Connection connection = DriverManager.getConnection(url, username, password)) {
+            System.out.println("Connection created: " + connection);
+
+            String insertSql = "INSERT INTO ACCOUNT (id, username, password) VALUES ((SELECT coalesce(MAX(ID), 0) + 1 FROM ACCOUNT A), 'user1', 'pass1')";
+            try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
+                statement.execute();
+            }
+
+            // then
+            String selectSql = "SELECT * FROM ACCOUNT";
+            try (PreparedStatement statement = connection.prepareStatement(selectSql)) {
+                var rs = statement.executeQuery();
+                while (rs.next()) {
+                    System.out.printf("%d, %s, %s", rs.getInt("id"), rs.getString("username"),
+                            rs.getString("password"));
+                }
+            }
+        }
+    }
 }
