@@ -5,7 +5,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString.Exclude;
 import me.study.jpa.thread.Thread;
+import me.study.jpa.user.User;
+import me.study.jpa.userChannel.UserChannel;
 
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -56,10 +59,19 @@ public class Channel {
     @OneToMany(mappedBy = "channel") // parent
     private Set<Thread> threads = new LinkedHashSet<>(); // set = 중복 제거, LinkedHashSet = 순서 보장
 
+    @OneToMany(mappedBy = "channel", cascade = CascadeType.ALL)
+    @Exclude
+    private Set<UserChannel> userChannels = new LinkedHashSet<>();
+
     /**
      * 연관관계 편의 메소드 - 반대쪽에는 연관관계 편의 메소드가 없도록 주의합니다.
      */
-
+    public UserChannel joinUser(User user) {
+        var userChannel = UserChannel.builder().user(user).channel(this).build();
+        this.userChannels.add(userChannel);
+        user.getUserChannels().add(userChannel);
+        return userChannel;
+    }
 
     /**
      * 서비스 메소드 - 외부에서 엔티티를 수정할 메소드를 정의합니다. (단일 책임을 가지도록 주의합니다.)

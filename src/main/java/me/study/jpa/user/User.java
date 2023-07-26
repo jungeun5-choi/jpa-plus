@@ -8,6 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.ToString.Exclude;
+import me.study.jpa.userChannel.UserChannel;
+import org.apache.ibatis.annotations.One;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 // lombok
 @Getter
@@ -52,7 +57,8 @@ public class User {
     /**
      * 연관관계 - Foreign Key 값을 따로 컬럼으로 정의하지 않고 연관 관계로 정의합니다.
      */
-
+    @OneToMany
+    Set<UserChannel> userChannels = new LinkedHashSet<>();
 
     /**
      * 연관관계 편의 메소드 - 반대쪽에는 연관관계 편의 메소드가 없도록 주의합니다.
